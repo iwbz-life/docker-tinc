@@ -37,10 +37,11 @@ generate_keys() {
 }
 
 # Params
-#   $1 external ip address
+#   $1 name
+#   $2 external ip address
 add_address_to_hosts_file() {
   cat << EOF | sed 's/^  //' >> "/etc/tinc/hosts/$1"
-  Address = $1
+  Address = $2
 EOF
 }
 
@@ -50,7 +51,7 @@ EOF
 #   $3 external ip address
 update_hosts_file() {
   if [ ! -z "$3" ]; then
-    add_address_to_hosts_file "$3"
+    add_address_to_hosts_file "$1" "$3"
   fi
 
   cat << EOF | sed 's/^  //' >> "/etc/tinc/hosts/$1"
